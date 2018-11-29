@@ -1,0 +1,45 @@
+proxy:
+  https:
+    hosts:
+    - sds365.ydata123.org
+    letsencrypt:
+      contactEmail: b.evans@yale.edu
+  secretToken: "ebd67d28f8a589e9edf75518c482311cd02f84ee9d0177ec9fd1ffeb6402974e" # output of second execution of 'openssl rand -hex 32'
+auth:
+  type: google
+  google:
+    clientId: "376730330090-2suomu9g52n41a4tivbqga9gkq7fcji6.apps.googleusercontent.com"
+    clientSecret: "5hr5fnxr1lE7UlcVq303HVq3"
+    callbackUrl: "http://sds365.ydata123.org/hub/oauth_callback"
+    hostedDomain: "yale.edu"
+    loginService: "Yale University"
+  # username is whatever comes before @yale.edu for EliApps account
+  admin:
+    # admin users can view/start/stop student notebooks.
+    users:
+        - b.evans
+        - jl2994
+        - jc3222
+  # whitelist:
+  #   users:
+  #       - user1
+  #       - user2
+cull:
+  enabled: true
+  timeout: 3600
+  every: 600
+# speed things up with a pre-puller
+prePuller:
+  continuous:
+    enabled: true
+singleuser:
+  schedulerStrategy: pack
+  memory:
+    guarantee: 1.7G
+    limit: 1.7G
+  storage:
+    capacity: 3Gi
+  image:
+    name: ydata123/student-images
+    tag: sds365f18_oct29
+  start-timeout: 601
